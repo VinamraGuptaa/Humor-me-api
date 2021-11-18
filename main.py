@@ -1,5 +1,6 @@
 """ We will use fastapi to GET and POST memes.
 """
+#Imports
 import fastapi as myapi
 import fastapi.responses as responses
 import os as _os
@@ -14,6 +15,51 @@ import json as _json
 app = myapi.FastAPI()
 
 
+#These are all the events for the api. 
+def get_all_events() -> Dict:
+    with open("events.json") as events_file:
+        data = _json.load(events_file)
+
+    return data
+
+
+def todays_events() -> Dict:
+    today = _time.date.today()
+    month = today.strftime("%B").lower()
+    day = str(today.day)
+    events = get_all_events()
+    return events[month][day]
+
+
+
+
+
+def day_events(month: str, day: int) -> Dict:
+    events = get_all_events()
+    try:
+        events = events[month][str(day)]
+        return events
+    except KeyError:
+        pass
+    
+def month_events(month: str) -> Dict:
+    events = get_all_events()
+    try:
+        month_events = events[month]
+        return month_events
+    except KeyError:
+        pass
+
+
+
+
+
+
+
+
+
+
+#These are all the calls we used in the API. On loading it redirects us to fastapi page. The user can get and post images. All the images are in the github Repo.
 @app.get("/")
 async def root():
  return responses.RedirectResponse('/redoc')
@@ -71,39 +117,6 @@ def upload_image(directory_name: str, image: myapi.UploadFile):
     return None
 
 
-def get_all_events() -> Dict:
-    with open("events.json") as events_file:
-        data = _json.load(events_file)
-
-    return data
-
-
-def todays_events() -> Dict:
-    today = _time.date.today()
-    month = today.strftime("%B").lower()
-    day = str(today.day)
-    events = get_all_events()
-    return events[month][day]
-
-
-
-
-
-def day_events(month: str, day: int) -> Dict:
-    events = get_all_events()
-    try:
-        events = events[month][str(day)]
-        return events
-    except KeyError:
-        pass
-    
-def month_events(month: str) -> Dict:
-    events = get_all_events()
-    try:
-        month_events = events[month]
-        return month_events
-    except KeyError:
-        pass
 
 
 

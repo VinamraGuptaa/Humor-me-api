@@ -6,7 +6,7 @@
 </p>
 
 ### [+] Description
-This API gets memes/images from the database. For simplicity purpose I have used programming memes from r/ProgrammerHumor. The get_meme.py fetchs all the images from the subreddit and creates a folder and stores the images. The Main.py uses the folder to get and post memes.
+This API gets memes/images from the database. For simplicity purpose I have used programming memes from <a href=https://www.reddit.com/r/ProgrammerHumor/>r/ProgrammerHumor</a>. The get_meme.py fetchs all the images from the subreddit and creates a folder and stores the images. The Main.py uses the folder to get and post memes.
 
 This is the link to the API: https://humor-me.herokuapp.com/redoc
 

@@ -8,6 +8,7 @@ import shutil as _shutil
 
 _dotenv.load_dotenv()
 
+#Creates an instance of the subreddit client. For detailed explaination refer PRAW api from reddit
 def create_reddit_client():
     client = raw.Reddit(
         client_id=_os.environ["CLIENT_ID"],
@@ -16,12 +17,13 @@ def create_reddit_client():
 
     )
     return client
+#Check if the post is image or not.
 def is_image(post):
     try:
         return post.post_hint== "image"
     except AttributeError:
         return False        
-
+#Fetchs the image url from the subreddit.
 def get_meme_url(client:raw.Reddit,subreddit_name:str,limit:int):
     hot_memes = client.subreddit(subreddit_name).hot(limit=limit)
     image_urls = list()
@@ -34,7 +36,7 @@ def get_meme_url(client:raw.Reddit,subreddit_name:str,limit:int):
 def _get_image_name(image_url: str) -> str:
     image_name = _parse.urlparse(image_url)
     return _os.path.basename(image_name.path)
-
+#Creates a folder locally and stores the meme.
 def create_folder(folder_name:str):
     """ Creates a folder to store memes"""
 
@@ -65,6 +67,6 @@ def collect_memes(subreddit_name:str,limit:int=20):
             response.raw.decode_content = True
             download_memes(subreddit_name,response.raw,image_name)
 
-
+#Runs the program and fetchs images from the subreddit eg. ProgrammerHumor and the maximum limit is 100 images. 
 if __name__ == "__main__":
     collect_memes("ProgrammerHumor",20)

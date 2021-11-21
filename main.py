@@ -23,36 +23,6 @@ def get_all_events() -> Dict:
     return data
 
 
-def todays_events() -> Dict:
-    today = _time.date.today()
-    month = today.strftime("%B").lower()
-    day = str(today.day)
-    events = get_all_events()
-    return events[month][day]
-
-
-
-
-
-def day_events(month: str, day: int) -> Dict:
-    events = get_all_events()
-    try:
-        events = events[month][str(day)]
-        return events
-    except KeyError:
-        pass
-    
-def month_events(month: str) -> Dict:
-    events = get_all_events()
-    try:
-        month_events = events[month]
-        return month_events
-    except KeyError:
-        pass
-
-
-
-
 
 
 
@@ -68,26 +38,6 @@ async def events():
     return get_all_events()
 
 
-@app.get("/events/{month}")
-async def events_month(month: str):
-    month_event = month_events(month)
-    if month_event:
-        return month_event
-
-    return myapi.HTTPException(
-        status_code=404, detail=f"Month: {month} could not be found"
-    )
-
-
-@app.get("/events/{month}/{day}")
-async def events_of_day(month: str, day: int):
-    events = day_events(month, day)
-    if events:
-        return events
-
-    return myapi.HTTPException(
-        status_code=404, detail=f"Date: {month}/{day} could not be found"
-    )    
 
 
 

@@ -11,4 +11,6 @@ This API gets memes/images from the database. For simplicity purpose I have used
 This is the link to the API: https://humor-me.herokuapp.com/redoc
 
 
+For any query related to the API please refer: https://www.youtube.com/watch?v=di13K2xTedo
+
 
